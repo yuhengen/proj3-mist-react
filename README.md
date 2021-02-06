@@ -92,12 +92,12 @@ The wireframes of the project will be available soon...
 - [AdonisJS](https://adonisjs.com/) for admin page and data rendering
 - MySQL as database to store data via CRUD
 - Javascript to implement interactivty with website
-- [Bootstrap](https://getbootstrap.com/) for Navbar and other Bootstrap components
 - [GitHub](https://github.com/) for version control and repositories
 - [GitPod](https://gitpod.io/) as coding platform
 - [Axios](https://github.com/axios/axios) to read from JSON files and database
 - GIMP for image editing
 - [Am I Responsive Checker](http://ami.responsivedesign.is/) to ensure my platform is mobile responsive
+- [React Bootstrap](https://react-bootstrap.github.io//) for Navbar and other Bootstrap components
 
 # Deployment
 ## Steps taken to deploy the project to Github pages (Credits to Paul Chor for a detailed and simple guide)
@@ -110,6 +110,5 @@ The wireframes of the project will be available soon...
 This project would not have been possible without my main lecturer, Paul Chor, for the skills and knowledge imparted to me, and teaching assistant, Shun, for the guidance during the building of the project during the bootcamp in Trent Global College.
 Big appreciation to AdonisJS and ReactJS documentations, [Adonis Forums](https://forum.adonisjs.com/), w3schools, Stackoverflow forums, Bootstrap documentation.
 
-- [Adonis Validator](https://adonisjs.com/docs/4.1/validator) documentations and Paul's demo for form validations
-- [Cloudinary](https://cloudinary.com/) and Paul's demo for uploading of images
-- [Select2](https://select2.org/) for category selection
+- [React Select2](https://github.com/plantain-00/select2-component) for dropdown selection
+- [React Country List](https://www.npmjs.com/package/react-select-country-list) for list of countries
