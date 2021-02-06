@@ -20,7 +20,7 @@ export default function Register() {
                 <label>Email:</label>
                 <input type="text" name="email" />
             </div>
-            <button onClick={this.registerAccount}>Register</button>
+            <button onClick={registerAccount}>Register</button>
         </React.Fragment>
     )
 }
