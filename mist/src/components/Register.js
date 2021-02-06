@@ -9,7 +9,8 @@ export default function Register() {
     const history = useHistory()
 
     function registerAccount() {
-        history.push('/summary')
+        // make home the current active route
+        history.push('/home')
     }
 
     return (
