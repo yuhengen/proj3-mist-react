@@ -23,6 +23,7 @@ import About from './components/About'
 import Library from './components/Library'
 import Login from './components/Login'
 import Register from './components/Register'
+import Footer from './components/Footer'
 
 function App() {
     const [modalShow, showLogin] = React.useState(false);
@@ -33,8 +34,6 @@ function App() {
             'backgroundSize': 'cover',
             'backgroundPosition': 'center',
             'backgroundRepeat': 'no-repeat',
-            'height': '100vh',
-            'width': '100vw',
             'zIndex': '-1'
         }}>
             <Router>
@@ -84,6 +83,8 @@ function App() {
                         </Route>
                     </Switch>
                 </Container>
+
+                <Footer />
             </Router >
         </div>
     )
