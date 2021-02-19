@@ -30,7 +30,7 @@ function App() {
 
     return (
         <div style={{
-            'backgroundImage': 'url("https://wallpaperaccess.com/full/800244.jpg")',
+            'backgroundImage': 'url("https://wallpapercave.com/wp/wp2635955.jpg")',
             'backgroundSize': 'cover',
             'backgroundPosition': 'center',
             'backgroundRepeat': 'no-repeat',
@@ -59,7 +59,8 @@ function App() {
                 </Navbar>
                 <Container style={{
                     'color': 'white',
-                    'padding': '10px'
+                    'padding': '50px',
+                    'backgroundColor': 'rgba(0, 0, 0, 0.5)'
                 }}>
                     <Login show={modalShow} onHide={() => showLogin(false)} />
                     <Switch>
@@ -83,7 +84,6 @@ function App() {
                         </Route>
                     </Switch>
                 </Container>
-
                 <Footer />
             </Router >
         </div>
