@@ -9,6 +9,8 @@ import { useHistory } from 'react-router-dom'
 import Form from 'react-bootstrap/Form'
 import Button from 'react-bootstrap/Button'
 
+const api_url = 'https://8080-b965e1cc-5c95-4e82-9fbe-eb2765fb8734.ws-us03.gitpod.io'
+
 export default function Register() {
     const [form, setForm] = useState({
         username: "",
@@ -60,9 +62,9 @@ export default function Register() {
             setError({
                 ...error
             })
-        } else if (form.username.length < 6 || form.username.length > 16) {
+        } else if (form.username.length < 6 || form.username.length > 20) {
             formIsValid = false;
-            error.username = "Username must be between 6 and 16 characters"
+            error.username = "Username must be between 6 and 20 characters"
             setError({
                 ...error
             })
@@ -108,7 +110,7 @@ export default function Register() {
         }
 
         // country validation
-        if (country.label == undefined){
+        if (country.label === undefined) {
             formIsValid = false;
             error.country = "Please select your country"
             setError({
@@ -117,7 +119,7 @@ export default function Register() {
         }
 
         // phone validation
-        if (form.contact_no.length < 7) {
+        if (form.contact_no.length < 7 || form.contact_no.length > 15) {
             formIsValid = false;
             error.contact_no = "Please enter a valid phone number"
             setError({
@@ -127,13 +129,33 @@ export default function Register() {
 
         // if everything is valid, process register
         if (formIsValid === true) {
+            let username = form.username;
+            let email = form.email;
+            let password = form.password;
+            let contact_no = form.contact_no;
+
+            let newUser = {
+                username,
+                email,
+                password,
+                country,
+                contact_no
+            }
+
+            console.log(newUser)
+
+            await axios.post(`${api_url}/api/user/register`, newUser)
+
             history.push('/login')
         }
     }
 
     return (
         <React.Fragment>
-            <h1 className="mb-3" style={{ textAlign: 'center' }}>Create Your Account</h1>
+            <div style={{ textAlign: 'center' }} className="mb-3">
+                <h1 className="mb-3">Create Your Account</h1>
+                <span>Create your own account with MiST and have your very own library of games!</span>
+            </div>
             <Form>
                 <Form.Group controlId='formUsername'>
                     <Form.Label>Username:</Form.Label>
