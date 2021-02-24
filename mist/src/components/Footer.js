@@ -1,5 +1,5 @@
 import React from "react";
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+// import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
 export default function FooterPage() {
     return (
@@ -7,9 +7,9 @@ export default function FooterPage() {
             backgroundColor: '#343a40',
             color: 'white'
         }}>
-            <div>
+            {/* <div>
                 <FontAwesomeIcon icon={['fab', 'apple']} />
-            </div>
+            </div> */}
             <div className="mb-3 d-flex">
                 <a href="#" className="mr-5" style={{ color: 'white' }}>Privacy Policy</a>
                 <a href="#" className="mr-5 ml-5" style={{ color: 'white' }}>Legal</a>

@@ -8,6 +8,7 @@ import { useHistory } from 'react-router-dom'
 
 import Form from 'react-bootstrap/Form'
 import Button from 'react-bootstrap/Button'
+import Alert from 'react-bootstrap/Alert'
 
 const api_url = 'https://8080-b965e1cc-5c95-4e82-9fbe-eb2765fb8734.ws-us03.gitpod.io'
 
@@ -36,6 +37,8 @@ export default function Register() {
 
     const history = useHistory()
 
+    const [successMessage, setSuccessMessage] = useState('')
+
     let [error, setError] = useState({
         username: "",
         email: "",
@@ -53,105 +56,92 @@ export default function Register() {
         error.contact_no = ""
         error.country = ""
 
-        let formIsValid = true
+        let username = form.username;
+        let email = form.email;
+        let password = form.password;
+        let password_confirmation = form.passwordC;
+        let contact_no = form.contact_no;
 
-        // username validation
-        if (!form.username) {
-            formIsValid = false;
-            error.username = "Username is required"
-            setError({
-                ...error
-            })
-        } else if (form.username.length < 6 || form.username.length > 20) {
-            formIsValid = false;
-            error.username = "Username must be between 6 and 20 characters"
-            setError({
-                ...error
-            })
+        let newUser = {
+            username,
+            email,
+            password,
+            password_confirmation,
+            country,
+            contact_no
         }
 
-        // email validation
-        if (!form.email) {
-            formIsValid = false;
-            error.email = "Email is required"
-            setError({
-                ...error
-            })
-        } else if (!form.email.includes('@') || !form.email.includes('.')) {
-            formIsValid = false;
-            error.email = "Invalid email format"
-            setError({
-                ...error
-            })
-        }
+        let response = await axios.post(`${api_url}/api/user/register`, newUser)
 
-        // password validation
-        if (!form.password) {
-            formIsValid = false;
-            error.password = "Password is required"
-            setError({
-                ...error
-            })
-        } else if (form.password.length < 8) {
-            formIsValid = false;
-            error.password = "Password must be longer than 8 characters"
-            setError({
-                ...error
-            })
-        }
+        let messages = response.data
+        console.log(messages)
 
-        // confirm password validation
-        if (form.passwordC !== form.password) {
-            formIsValid = false;
-            error.passwordC = "Password does not match"
-            setError({
-                ...error
-            })
-        }
+        if (messages !== `Your account ${username} has been created`) {
+            for (let errors of messages) {
+                if (errors.field === "username") {
+                    console.log(errors.message)
+                    error.username = errors.message
+                    setError({
+                        ...error
+                    })
+                }
 
-        // country validation
-        if (country.label === undefined) {
-            formIsValid = false;
-            error.country = "Please select your country"
-            setError({
-                ...error
-            })
-        }
+                if (errors.field === "email") {
+                    console.log(errors.message)
+                    error.email = errors.message
+                    setError({
+                        ...error
+                    })
+                }
 
-        // phone validation
-        if (form.contact_no.length < 7 || form.contact_no.length > 15) {
-            formIsValid = false;
-            error.contact_no = "Please enter a valid phone number"
-            setError({
-                ...error
-            })
-        }
+                if (errors.field === "password") {
+                    console.log(errors.message)
+                    error.password = errors.message
+                    setError({
+                        ...error
+                    })
+                }
 
-        // if everything is valid, process register
-        if (formIsValid === true) {
-            let username = form.username;
-            let email = form.email;
-            let password = form.password;
-            let contact_no = form.contact_no;
+                if (errors.field === "country") {
+                    console.log(errors.message)
+                    error.country = errors.message
+                    setError({
+                        ...error
+                    })
+                }
 
-            let newUser = {
-                username,
-                email,
-                password,
-                country,
-                contact_no
+                if (errors.field === "contact_no") {
+                    console.log(errors.message)
+                    error.contact_no = errors.message
+                    setError({
+                        ...error
+                    })
+                }
             }
+        } else {
+            console.log('no errors!')
+            error.username = ""
+            error.email = ""
+            error.password = ""
+            error.passwordC = ""
+            error.contact_no = ""
+            error.country = ""
 
-            console.log(newUser)
-
-            await axios.post(`${api_url}/api/user/register`, newUser)
-
-            history.push('/login')
+            form.username = ""
+            form.email = ""
+            form.password = ""
+            form.passwordC = ""
+            form.contact_no = ""
+            form.country = ""
+            setSuccessMessage(messages)
         }
     }
 
     return (
         <React.Fragment>
+            {successMessage.length > 0 &&
+                <Alert variant="success">{successMessage}. You can now login to your MiST account!</Alert>
+            }
             <div style={{ textAlign: 'center' }} className="mb-3">
                 <h1 className="mb-3">Create Your Account</h1>
                 <span>Create your own account with MiST and have your very own library of games!</span>
