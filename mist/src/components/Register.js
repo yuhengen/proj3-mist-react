@@ -3,9 +3,6 @@ import axios from 'axios'
 import Select from 'react-select'
 import countryList from 'react-select-country-list'
 
-// React Hook
-import { useHistory } from 'react-router-dom'
-
 import Form from 'react-bootstrap/Form'
 import Button from 'react-bootstrap/Button'
 import Alert from 'react-bootstrap/Alert'
@@ -34,8 +31,6 @@ export default function Register() {
     const changeHandler = country => {
         setCountry(country)
     }
-
-    const history = useHistory()
 
     const [successMessage, setSuccessMessage] = useState('')
 
@@ -74,12 +69,10 @@ export default function Register() {
         let response = await axios.post(`${api_url}/api/user/register`, newUser)
 
         let messages = response.data
-        console.log(messages)
 
         if (messages !== `Your account ${username} has been created`) {
             for (let errors of messages) {
                 if (errors.field === "username") {
-                    console.log(errors.message)
                     error.username = errors.message
                     setError({
                         ...error
@@ -87,7 +80,6 @@ export default function Register() {
                 }
 
                 if (errors.field === "email") {
-                    console.log(errors.message)
                     error.email = errors.message
                     setError({
                         ...error
@@ -95,7 +87,6 @@ export default function Register() {
                 }
 
                 if (errors.field === "password") {
-                    console.log(errors.message)
                     error.password = errors.message
                     setError({
                         ...error
@@ -103,7 +94,6 @@ export default function Register() {
                 }
 
                 if (errors.field === "country") {
-                    console.log(errors.message)
                     error.country = errors.message
                     setError({
                         ...error
@@ -111,7 +101,6 @@ export default function Register() {
                 }
 
                 if (errors.field === "contact_no") {
-                    console.log(errors.message)
                     error.contact_no = errors.message
                     setError({
                         ...error
@@ -119,7 +108,6 @@ export default function Register() {
                 }
             }
         } else {
-            console.log('no errors!')
             error.username = ""
             error.email = ""
             error.password = ""

@@ -9,3 +9,8 @@
 .nav-item .dropdown-item:hover {
   background: #4c96d7;
 }
+
+.custom-modal .modal-content {
+    background-color: #282c34;
+    color:white;
+}
