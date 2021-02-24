@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import './css/styles.css'
 
 // import react router 
@@ -27,6 +27,20 @@ import Footer from './components/Footer'
 
 function App() {
     const [modalShow, showLogin] = React.useState(false);
+
+    const [state, setState] = useState({
+        token: ""
+    })
+
+    useEffect(() => {
+        if (!state.token) {
+            setState({
+                token: localStorage.getItem('loginToken')
+            })
+        }
+
+        console.log(state.token)
+    })
 
     return (
         <div style={{

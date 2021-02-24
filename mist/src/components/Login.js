@@ -6,6 +6,9 @@ import Form from 'react-bootstrap/Form'
 import { useHistory } from "react-router-dom";
 
 import '../css/styles.css'
+import axios from 'axios';
+
+const api_url = 'https://8080-b965e1cc-5c95-4e82-9fbe-eb2765fb8734.ws-us03.gitpod.io'
 
 export default function Login(props) {
     const history = useHistory();
@@ -22,19 +25,44 @@ export default function Login(props) {
         })
     }
 
-    const [error, setError] = useState({
-        username: "",
-        password: ""
-    })
+    const [errorMessage, setErrorMessage] = useState('')
 
-    const handleClose = () => props.onHide()
-
-    const processLogin = () =>{
-        handleClose()
-        history.push('/')
+    const handleClose = () => {
+        setErrorMessage('')
+        setLoginForm({
+            username: "",
+            password: ""
+        })
+        props.onHide()
     }
 
-    const toRegister = () =>{
+    const processLogin = async () => {
+        setErrorMessage('')
+
+        let username = loginForm.username
+        let password = loginForm.password
+
+        let loginUser = {
+            username,
+            password
+        }
+
+        let response = await axios.post(`${api_url}/api/user/login`, loginUser)
+
+        let loginResponse = response.data
+
+        if (!loginResponse.token) {
+            console.log(loginResponse)
+            setErrorMessage(loginResponse)
+        } else {
+            const loginToken = loginResponse
+            localStorage.setItem('loginToken', loginToken.token)
+            console.log(loginToken.token)
+            handleClose()
+        }
+    }
+
+    const toRegister = () => {
         handleClose()
         history.push('/register')
     }
@@ -53,11 +81,10 @@ export default function Login(props) {
                     <Form className='text-center m-3'>
                         <Form.Label>Username:</Form.Label>
                         <Form.Control type='text' name='username' placeholder='Enter username' value={loginForm.username} onChange={updateFormField} />
-                        <span style={{ color: 'red' }}>{error.username}</span>
 
                         <Form.Label className='mt-3'>Password:</Form.Label>
-                        <Form.Control type='password' name='password' placeholder='Enter password' value={loginForm.password} onChange={updateFormField} />
-                        <span style={{ color: 'red' }}>{error.password}</span>
+                        <Form.Control className='mb-3' type='password' name='password' placeholder='Enter password' value={loginForm.password} onChange={updateFormField} />
+                        <span style={{ color: 'red' }}>{errorMessage}</span>
                     </Form>
                     <div className="m-3 text-center">
                         <Button onClick={processLogin} variant='primary' className='m-2'>Login</Button>
