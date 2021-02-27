@@ -56,7 +56,7 @@ export default function Login(props) {
             setErrorMessage(loginResponse)
         } else {
             const loginToken = loginResponse
-            localStorage.setItem('loginToken', loginToken.token)
+            sessionStorage.setItem('loginToken', loginToken.token)
 
             // console.log(loginToken.token)
 
@@ -67,8 +67,8 @@ export default function Login(props) {
             })
 
             let userProfile = response2.data
-            localStorage.setItem('userProfile', JSON.stringify(userProfile))
-            // console.log(JSON.parse(localStorage.getItem('userProfile')))
+            sessionStorage.setItem('userProfile', JSON.stringify(userProfile))
+            // console.log(JSON.parse(sessionStorage.getItem('userProfile')))
 
             handleClose()
             history.push('/')

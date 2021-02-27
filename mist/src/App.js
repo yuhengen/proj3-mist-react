@@ -7,8 +7,7 @@ import {
     Switch,
     Route,
     Link,
-    Redirect,
-    useHistory
+    Redirect
 } from 'react-router-dom'
 
 // bootstrap
@@ -27,13 +26,7 @@ import Login from './components/Login'
 import Register from './components/Register'
 import Footer from './components/Footer'
 
-import axios from 'axios';
-
-const api_url = 'https://8080-b965e1cc-5c95-4e82-9fbe-eb2765fb8734.ws-us03.gitpod.io/api'
-const site_url = 'https://3000-ce67cbe8-2877-4e44-a853-6cda44d21f85.ws-us03.gitpod.io/'
-
 function App() {
-    const history = useHistory();
     const [modalShow, showLogin] = React.useState(false);
 
     const [state, setState] = useState({
@@ -44,11 +37,11 @@ function App() {
     })
 
     useEffect(() => {
-        console.log(localStorage.getItem('loginToken'))
-        if (localStorage.getItem('loginToken') !== null) {
-            state.token = localStorage.getItem('loginToken')
+        console.log(sessionStorage.getItem('loginToken'))
+        if (sessionStorage.getItem('loginToken') !== null) {
+            state.token = sessionStorage.getItem('loginToken')
             state.loggedIn = true
-            state.userProfile = JSON.parse(localStorage.getItem('userProfile'))
+            state.userProfile = JSON.parse(sessionStorage.getItem('userProfile'))
             setState({
                 ...state
             })
@@ -70,10 +63,10 @@ function App() {
                 ...state
             })
         }
-    }, [localStorage.getItem('loginToken')])
+    }, [sessionStorage.getItem('loginToken')])
 
     const processLogout = () => {
-        localStorage.clear()
+        sessionStorage.clear()
         state.token = ""
         state.loggedIn = false
         state.userProfile = {}
