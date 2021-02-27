@@ -8,7 +8,7 @@ import { useHistory } from "react-router-dom";
 import '../css/styles.css'
 import axios from 'axios';
 
-const api_url = 'https://8080-b965e1cc-5c95-4e82-9fbe-eb2765fb8734.ws-us03.gitpod.io'
+const api_url = 'https://8080-b965e1cc-5c95-4e82-9fbe-eb2765fb8734.ws-us03.gitpod.io/api'
 
 export default function Login(props) {
     const history = useHistory();
@@ -47,7 +47,7 @@ export default function Login(props) {
             password
         }
 
-        let response = await axios.post(`${api_url}/api/user/login`, loginUser)
+        let response = await axios.post(`${api_url}/user/login`, loginUser)
 
         let loginResponse = response.data
 
@@ -57,8 +57,21 @@ export default function Login(props) {
         } else {
             const loginToken = loginResponse
             localStorage.setItem('loginToken', loginToken.token)
-            console.log(loginToken.token)
+
+            // console.log(loginToken.token)
+
+            let response2 = await axios.get(`${api_url}/user/profile`, {
+                headers: {
+                    Authorization: "Bearer " + loginToken.token
+                }
+            })
+
+            let userProfile = response2.data
+            localStorage.setItem('userProfile', JSON.stringify(userProfile))
+            // console.log(JSON.parse(localStorage.getItem('userProfile')))
+
             handleClose()
+            history.push('/')
         }
     }
 

@@ -7,7 +7,7 @@ import Form from 'react-bootstrap/Form'
 import Button from 'react-bootstrap/Button'
 import Alert from 'react-bootstrap/Alert'
 
-const api_url = 'https://8080-b965e1cc-5c95-4e82-9fbe-eb2765fb8734.ws-us03.gitpod.io'
+const api_url = 'https://8080-b965e1cc-5c95-4e82-9fbe-eb2765fb8734.ws-us03.gitpod.io/api'
 
 export default function Register() {
     const [form, setForm] = useState({
@@ -66,7 +66,7 @@ export default function Register() {
             contact_no
         }
 
-        let response = await axios.post(`${api_url}/api/user/register`, newUser)
+        let response = await axios.post(`${api_url}/user/register`, newUser)
 
         let messages = response.data
 

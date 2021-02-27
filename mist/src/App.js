@@ -6,7 +6,9 @@ import {
     BrowserRouter as Router,
     Switch,
     Route,
-    Link
+    Link,
+    Redirect,
+    useHistory
 } from 'react-router-dom'
 
 // bootstrap
@@ -25,22 +27,60 @@ import Login from './components/Login'
 import Register from './components/Register'
 import Footer from './components/Footer'
 
+import axios from 'axios';
+
+const api_url = 'https://8080-b965e1cc-5c95-4e82-9fbe-eb2765fb8734.ws-us03.gitpod.io/api'
+const site_url = 'https://3000-ce67cbe8-2877-4e44-a853-6cda44d21f85.ws-us03.gitpod.io/'
+
 function App() {
+    const history = useHistory();
     const [modalShow, showLogin] = React.useState(false);
 
     const [state, setState] = useState({
-        token: ""
+        token: "",
+        loggedIn: false,
+        userProfile: {},
+        username: ""
     })
 
     useEffect(() => {
-        if (!state.token) {
+        console.log(localStorage.getItem('loginToken'))
+        if (localStorage.getItem('loginToken') !== null) {
+            state.token = localStorage.getItem('loginToken')
+            state.loggedIn = true
+            state.userProfile = JSON.parse(localStorage.getItem('userProfile'))
             setState({
-                token: localStorage.getItem('loginToken')
+                ...state
+            })
+
+            state.username = state.userProfile.username
+            setState({
+                ...state
+            })
+
+            console.log(state.token)
+            console.log(state.loggedIn)
+            console.log(state.userProfile)
+        } else {
+            console.log("No token")
+            state.token = ""
+            state.loggedIn = false
+            state.userProfile = {}
+            setState({
+                ...state
             })
         }
+    }, [localStorage.getItem('loginToken')])
 
-        console.log(state.token)
-    })
+    const processLogout = () => {
+        localStorage.clear()
+        state.token = ""
+        state.loggedIn = false
+        state.userProfile = {}
+        setState({
+            ...state
+        })
+    }
 
     return (
         <div style={{
@@ -59,14 +99,15 @@ function App() {
                             <Nav className="mr-auto">
                                 <Nav.Link as={Link} to="/store" className="ml-3 mr-3">STORE</Nav.Link>
                                 <Nav.Link as={Link} to="/about" className="ml-3 mr-3">ABOUT</Nav.Link>
-                                <NavDropdown title="USERNAME" id="basic-nav-dropdown" className="ml-3 mr-3">
+                                {state.loggedIn && <NavDropdown title={state.username && state.username.toUpperCase()} id="basic-nav-dropdown" className="ml-3 mr-3">
                                     <NavDropdown.Item as={Link} to="/library" bg="dark" variant='dark'>LIBRARY</NavDropdown.Item>
                                     <NavDropdown.Item as={Link} to="/profile">PROFILE</NavDropdown.Item>
                                     <NavDropdown.Divider />
                                     <NavDropdown.Item href="#">LOGOUT</NavDropdown.Item>
-                                </NavDropdown>
-                                <Nav.Link onClick={() => showLogin(true)} className="ml-3 mr-3">LOGIN</Nav.Link>
-                                <Nav.Link as={Link} to="/register" className="ml-3 mr-3">REGISTER</Nav.Link>
+                                </NavDropdown>}
+                                {!state.loggedIn && <Nav.Link onClick={() => showLogin(true)} className="ml-3 mr-3">LOGIN</Nav.Link>}
+                                {!state.loggedIn && <Nav.Link as={Link} to="/register" className="ml-3 mr-3">REGISTER</Nav.Link>}
+                                {state.loggedIn && <Nav.Link onClick={processLogout} className="ml-3 mr-3">LOGOUT</Nav.Link>}
                             </Nav>
                         </Navbar.Collapse>
                     </Container>
@@ -88,13 +129,13 @@ function App() {
                             <About />
                         </Route>
                         <Route exact path='/library'>
-                            <Library />
+                            {!state.loggedIn ? <Redirect to='/' /> : <Library />}
                         </Route>
                         <Route exact path='/profile'>
-                            <Profile />
+                            {!state.loggedIn ? <Redirect to='/' /> : <Profile />}
                         </Route>
                         <Route exact path='/register'>
-                            <Register />
+                            {state.loggedIn ? <Redirect to='/' /> : <Register />}
                         </Route>
                     </Switch>
                 </Container>
