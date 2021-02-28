@@ -37,7 +37,6 @@ function App() {
     })
 
     useEffect(() => {
-        console.log(sessionStorage.getItem('loginToken'))
         if (sessionStorage.getItem('loginToken') !== null) {
             state.token = sessionStorage.getItem('loginToken')
             state.loggedIn = true
@@ -50,12 +49,7 @@ function App() {
             setState({
                 ...state
             })
-
-            console.log(state.token)
-            console.log(state.loggedIn)
-            console.log(state.userProfile)
         } else {
-            console.log("No token")
             state.token = ""
             state.loggedIn = false
             state.userProfile = {}
@@ -90,7 +84,7 @@ function App() {
                         <Navbar.Toggle aria-controls="responsive-navbar-nav" />
                         <Navbar.Collapse id="responsive-navbar-nav">
                             <Nav className="mr-auto">
-                                <Nav.Link as={Link} to="/store" className="ml-3 mr-3">STORE</Nav.Link>
+                                <Nav.Link as={Link} to="/" className="ml-3 mr-3">STORE</Nav.Link>
                                 <Nav.Link as={Link} to="/about" className="ml-3 mr-3">ABOUT</Nav.Link>
                                 {state.loggedIn && <NavDropdown title={state.username && state.username.toUpperCase()} id="basic-nav-dropdown" className="ml-3 mr-3">
                                     <NavDropdown.Item as={Link} to="/library" bg="dark" variant='dark'>LIBRARY</NavDropdown.Item>
@@ -112,10 +106,10 @@ function App() {
                 }}>
                     <Login show={modalShow} onHide={() => showLogin(false)} />
                     <Switch>
-                        <Route exact path='/'>
+                        {/* <Route exact path='/'>
                             <Home />
-                        </Route>
-                        <Route exact path='/store'>
+                        </Route> */}
+                        <Route exact path='/'>
                             <Store />
                         </Route>
                         <Route exact path='/about'>

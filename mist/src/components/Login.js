@@ -52,13 +52,10 @@ export default function Login(props) {
         let loginResponse = response.data
 
         if (!loginResponse.token) {
-            console.log(loginResponse)
             setErrorMessage(loginResponse)
         } else {
             const loginToken = loginResponse
             sessionStorage.setItem('loginToken', loginToken.token)
-
-            // console.log(loginToken.token)
 
             let response2 = await axios.get(`${api_url}/user/profile`, {
                 headers: {
@@ -68,7 +65,6 @@ export default function Login(props) {
 
             let userProfile = response2.data
             sessionStorage.setItem('userProfile', JSON.stringify(userProfile))
-            // console.log(JSON.parse(sessionStorage.getItem('userProfile')))
 
             handleClose()
             history.push('/')

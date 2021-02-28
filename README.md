@@ -38,9 +38,18 @@ The primary purpose of MiST is to have users create accounts and purchase video 
 ```
 
 # The Requirements (SCOPE)
-## Current Features (Users)
+## Current Features for Publishers (Adonis/Backend)
 ```
-1. Sign up for account
+1. Sign up for Publisher account
+2. Login to the account
+3. Browse list of products that belong to you
+4. View or edit details of individual products
+5. Delete unwanted products from your list of products
+```
+
+## Current Features for Users (React/Frontend)
+```
+1. Sign up for User account
 2. Login to the account
 3. Browse for list of products
 4. View details of individual products
@@ -92,12 +101,12 @@ The wireframes of the project will be available soon...
 - [AdonisJS](https://adonisjs.com/) for admin page and data rendering
 - MySQL as database to store data via CRUD
 - Javascript to implement interactivty with website
+- [React Bootstrap](https://react-bootstrap.github.io//) for Navbar and other Bootstrap components
 - [GitHub](https://github.com/) for version control and repositories
 - [GitPod](https://gitpod.io/) as coding platform
 - [Axios](https://github.com/axios/axios) to read from JSON files and database
 - GIMP for image editing
 - [Am I Responsive Checker](http://ami.responsivedesign.is/) to ensure my platform is mobile responsive
-- [React Bootstrap](https://react-bootstrap.github.io//) for Navbar and other Bootstrap components
 
 # Deployment
 ## Steps taken to deploy the project to Github pages (Credits to Paul Chor for a detailed and simple guide)
