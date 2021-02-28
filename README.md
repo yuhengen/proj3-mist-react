@@ -70,7 +70,7 @@ The sitemap of the project will be available soon...
 ---
 
 # Developing Page Structure and Organize Interactions (SKELETON)
---
+We want our users to know more about newly released products, so the new and popular game titles are featured first. Upon entering the site, a carousell showcasing the titles will be the first thing the users see.
 
 ## Wireframes
 ---
@@ -81,20 +81,14 @@ The wireframes of the project will be available soon...
 
 # Designing the Graphics User Interface (SURFACE)
 ## Colors
---
+After research and considerations, the main colors I decide to use for the MiST frontend website are the neutral colors of minimalism and simplicity.
+```
+-Black or grey for the background, as it is able to blend in most situations
+-White used for fonts and texts to contrast the dark background colors
+```
 
 ## Fonts
---
-
-# ER Diagram
-<img src="./documentation/proj3-erd.jpg" style="margin: 0;">
-
----
-
-# Logical Schema
-<img src="./documentation/proj3-logical-schema.jpg" style="margin: 0;">
-
----
+The font mainly used on the website is Sans Serif, the default font family, which is often used to convey modernity or minimalism.
 
 # Technologies
 - [ReactJS](https://reactjs.org/), [AdonisJS](https://adonisjs.com/) and CSS for structuring and styling the website
